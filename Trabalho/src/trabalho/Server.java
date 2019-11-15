@@ -60,6 +60,8 @@ public class Server {
 				} else if (operation[0].equals("listar")) {
 
 					File directory = new File(operation[1]);
+					
+					returnMessage += "Itens:;";
 
 					// Transforma o vetor de String em uma String.
 					for (int i = 0; i < directory.list().length; i++)
@@ -78,8 +80,6 @@ public class Server {
 						returnMessage += "Falha na deleção de diretório/arquivo.\n";
 
 				} else if (operation[0].equals("enviar")) {
-					// TODO;
-				} else if (operation[0].equals("remvarq")) {
 					// TODO;
 				}
 
