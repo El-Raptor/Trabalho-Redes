@@ -1,8 +1,16 @@
 package trabalho;
 
-import java.net.*;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class Server {
 	
@@ -30,7 +38,9 @@ public class Server {
 				// A primeira para o comando e a segunda para o caminho.
 				String operation[] = receivedMessage.split(":");
 				
-				String returnMessage = "Falha na operação.";
+				Date date = new Date();
+				
+				String returnMessage = date + ": Falha na operação.";
 				
 				// Seleciona a operação escolhida pelo cliente.				
 				if (operation[0].equals("criar")) {
