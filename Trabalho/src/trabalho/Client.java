@@ -42,7 +42,7 @@ public class Client {
 			// Fecha o scanner.
 			scanner.close();
 
-			String sendMessage = operation + " " + path + "\n";
+			String sendMessage = operation + "|" + path + "\n";
 			bw.write(sendMessage);
 			bw.flush();
 

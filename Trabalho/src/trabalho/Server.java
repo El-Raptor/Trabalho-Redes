@@ -26,7 +26,7 @@ public class Server {
 				String receivedMessage = br.readLine();
 				System.out.println("Mensagem recebida do cliente: " + receivedMessage);
 				
-				String operation[] = receivedMessage.split(" ");
+				String operation[] = receivedMessage.split("|");
 				
 				// Multiplicando o número por dois e formando a mensagem de retorno.
 				String returnMessage;
