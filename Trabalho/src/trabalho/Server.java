@@ -42,7 +42,7 @@ public class Server {
 				// Recupera hora do sistema.
 				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 				Date date = new Date();
-
+				
 				String returnMessage = "(" + dateFormat.format(date) + "): ";
 
 				// Seleciona a operação escolhida pelo cliente.
@@ -55,7 +55,7 @@ public class Server {
 						returnMessage += "Diretório " + operation[1] + " criado\n";
 
 					else
-						returnMessage += "Falha na criação de diretório.";
+						returnMessage += "Falha na criação de diretório.\n";
 
 				} else if (operation[0].equals("listar")) {
 
@@ -76,7 +76,7 @@ public class Server {
 						returnMessage = "Diretório deletado.\n";
 					
 					else
-						returnMessage += "Falha na deleção de diretório.";
+						returnMessage += "Falha na deleção de diretório.\n";
 
 				} else if (operation[0].equals("enviar")) {
 					// TODO;
