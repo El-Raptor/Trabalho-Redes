@@ -34,8 +34,12 @@ public class Server {
 				if (operation[0].equals("criar")) {
 					try {
 						File directory = new File(operation[1]);
-						directory.mkdir();
-						returnMessage = "Diretório " + operation[1] + " criado\n";
+						boolean dirCreated = directory.mkdir();
+						
+						// Verifica se diretório foi criado.
+						if (dirCreated)
+							returnMessage = "Diretório " + operation[1] + " criado\n";
+						
 					} catch (Exception e) {
 						// Entrada não era um número. Enviando a mensagem correta ao cliente.
 						returnMessage = "Falha na criação do diretório.\n";
