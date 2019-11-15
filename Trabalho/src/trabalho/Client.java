@@ -1,7 +1,14 @@
 package trabalho;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
 
@@ -19,10 +26,21 @@ public class Client {
 			OutputStreamWriter outWriter = new OutputStreamWriter(out);
 			BufferedWriter bw = new BufferedWriter(outWriter);
 
-			String operation = "criar";
-			String path = "src\\Servidor\\Pasta";
+			System.out.println("Digite a operação na qual deseja realizar:\nCriar diretório: criar\nRemover "
+					+ "diretório: remvdir\nListar conteúdo de diretório: listar\nEnviar arquivo: enviar\n Remover arquivo: remvarq");
+
+			// Lê do teclado a operação desejada.
+			Scanner scanner = new Scanner(System.in);
+			String operation = scanner.nextLine();
+			String path = "src\\Servidor\\" + scanner.nextLine();
 			
-			String sendMessage = operation + " " + path + "\n";		
+			// Transforma todos os caracteres em minúsculo.
+			operation = operation.toLowerCase();
+
+			// Fecha o scanner.
+			scanner.close();
+
+			String sendMessage = operation + " " + path + "\n";
 			bw.write(sendMessage);
 			bw.flush();
 
