@@ -58,15 +58,18 @@ public class Client {
 
 			bw.write(sendMessage);
 			bw.flush();
-
-			System.out.println("Mensagem enviada ao servidor: " + sendMessage);
+			
+			System.out.println("\nMensagem enviada ao servidor: " + sendMessage + "\n");
 
 			// Recebe a mensagem de retorno do servidor.
 			InputStream in = socket.getInputStream();
 			InputStreamReader inReader = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inReader);
 			String message = br.readLine();
-			System.out.println("Mensagem recebida do servidor: " + message);
+			
+			// Trata e formata a String para um formato de lista.
+			message = message.replace(";", "\n");
+			System.out.println(message);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
