@@ -1,7 +1,11 @@
 package trabalho;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -41,6 +45,9 @@ public class Client {
 
 			String path = "src\\Servidor\\";
 			
+			boolean sendFile = false;
+			String filePath = "";
+			String newPath = "";
 
 			if (operation.equals("criar")) {
 				System.out.println("Digite um nome para a nova pasta.");
@@ -57,14 +64,19 @@ public class Client {
 				path = path + desiredDir;
 				
 			} else if (operation.equals("enviar")) {
-				// TODO;
+				sendFile = true;
+				System.out.println("Digite o caminho do arquivo que deseja enviar.");
+				filePath = scanner.nextLine();
+				System.out.println("Digite o caminho para onde deseja enviar o arquivo.");
+				newPath = scanner.nextLine();
+				path = filePath;
 			} 
 			
 			String sendMessage = operation + ":" + path + "\n";
 
 			// Fecha o scanner.
 			scanner.close();
-
+			
 			bw.write(sendMessage);
 			bw.flush();
 			
@@ -79,6 +91,17 @@ public class Client {
 			InputStreamReader inReader = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inReader);
 			String message = br.readLine();
+			
+			if (sendFile) {
+				
+				byte[] byteArray = new byte[1048576];
+				InputStream is = socket.getInputStream();
+				FileOutputStream fos = new FileOutputStream(newPath);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				//int bytesRead = is.read(byteArray, 0, byteArray.length);
+				bos.write(byteArray, 0, byteArray.length);
+				bos.close();	
+			}
 			
 			// Trata e formata a String para um formato de lista.
 			message = message.replace(";", "\n");

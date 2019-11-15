@@ -1,8 +1,10 @@
 package trabalho;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -85,7 +87,22 @@ public class Server {
 						returnMessage += "Falha na deleção de diretório/arquivo.\n";
 
 				} else if (operation[0].equals("enviar")) {
-					// TODO;
+					// Preparando o arquivo.
+					File dir = new File(operation[1]);
+					byte[] byteArray = new byte[(int) dir.length()];
+					
+					// Lê o arquivo.
+					BufferedInputStream bis = new BufferedInputStream(new FileInputStream(dir));
+					bis.read(byteArray, 0, byteArray.length);
+					
+					// Escreve o arquivo no socket.
+					OutputStream os = socket.getOutputStream();
+					os.write(byteArray, 0, byteArray.length);
+					os.flush();
+					
+					bis.close();
+					
+					returnMessage += "Envio realizado com sucesso.\n";
 				}
 
 				// Enviando a resposta de volta ao cliente.
