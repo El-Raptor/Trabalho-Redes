@@ -27,7 +27,7 @@ public class Client {
 			BufferedWriter bw = new BufferedWriter(outWriter);
 
 			System.out.println("Digite a operação na qual deseja realizar:\n\nCriar diretório: criar\nRemover "
-					+ "diretório: remvdir\nListar conteúdo de diretório: listar\nEnviar arquivo: enviar\nRemover arquivo: remvarq");
+					+ "diretório/arquivo: remover\nListar conteúdo de diretório: listar\nEnviar arquivo: enviar\n");
 
 			// Lê do teclado a operação desejada.
 			Scanner scanner = new Scanner(System.in);
@@ -42,8 +42,8 @@ public class Client {
 			if (operation.equals("criar")) {
 				System.out.println("Digite um nome para a nova pasta.");
 				path = path + scanner.nextLine();
-			} else if (operation.equals("remvdir")) {
-				System.out.println("Digite o diretório o qual deseja remover.");
+			} else if (operation.equals("remover")) {
+				System.out.println("Digite o diretório/arquivo no qual deseja remover.");
 				String desiredDir = scanner.nextLine();
 				
 				// Impede a exclusão do diretório "Servidor".
@@ -55,9 +55,7 @@ public class Client {
 				
 			} else if (operation.equals("enviar")) {
 				// TODO;
-			} else if (operation.equals("remvarq")) {
-				// TODO;
-			}
+			} 
 			
 			String sendMessage = operation + ":" + path + "\n";
 

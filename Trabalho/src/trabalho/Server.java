@@ -60,23 +60,22 @@ public class Server {
 				} else if (operation[0].equals("listar")) {
 
 					File directory = new File(operation[1]);
-					//returnMessage = "";
 
 					// Transforma o vetor de String em uma String.
 					for (int i = 0; i < directory.list().length; i++)
 						returnMessage += directory.list()[i] + ";";
 
-				} else if (operation[0].equals("remvdir")) {
+				} else if (operation[0].equals("remover")) {
 
 					File dir = new File(operation[1]);
 					boolean dirDeleted = dir.delete();
 
 					// Verifica se o diretório foi deletado
 					if (dirDeleted)
-						returnMessage = "Diretório deletado.\n";
+						returnMessage = "Diretório/arquivo deletado.\n";
 					
 					else
-						returnMessage += "Falha na deleção de diretório.\n";
+						returnMessage += "Falha na deleção de diretório/arquivo.\n";
 
 				} else if (operation[0].equals("enviar")) {
 					// TODO;
