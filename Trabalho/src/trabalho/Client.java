@@ -44,7 +44,15 @@ public class Client {
 				path = path + scanner.nextLine();
 			} else if (operation.equals("remvdir")) {
 				System.out.println("Digite o diretório o qual deseja remover.");
-				path = path + scanner.nextLine();
+				String desiredDir = scanner.nextLine();
+				
+				// Impede a exclusão do diretório "Servidor".
+				if (desiredDir.equals("\n") || desiredDir.equals("")) { 
+					scanner.close();
+					throw new IllegalArgumentException("Não é permitido apagar este diretório.");
+				}			
+				path = path + desiredDir;
+				
 			} else if (operation.equals("enviar")) {
 				// TODO;
 			} else if (operation.equals("remvarq")) {
