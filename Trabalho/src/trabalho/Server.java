@@ -23,16 +23,20 @@ public class Server {
 				InputStream in = socket.getInputStream();
 				InputStreamReader inReader = new InputStreamReader(in);
 				BufferedReader br = new BufferedReader(inReader);
-				String number = br.readLine();
-				System.out.println("Mensagem recebida do cliente é " + number);
-
+				String receivedMessage = br.readLine();
+				System.out.println("Mensagem recebida do cliente: " + receivedMessage);
+				
+				String operation[] = receivedMessage.split(" ");
+				
 				// Multiplicando o número por dois e formando a mensagem de retorno.
 				String returnMessage;
 				try {
-					returnMessage = number + " legal\n";
+					File directory = new File(operation[1]);
+					directory.mkdir();
+					returnMessage = "Diretório criado\n";
 				} catch (Exception e) {
 					// Entrada não era um número. Enviando a mensagem correta ao cliente.
-					returnMessage = "Por favor, insira um número.\n";
+					returnMessage = "Falha na criação do diretório.\n";
 				}
 
 				// Enviando a resposta de volta ao cliente.
@@ -40,7 +44,7 @@ public class Server {
 				OutputStreamWriter outWriter = new OutputStreamWriter(out);
 				BufferedWriter bw = new BufferedWriter(outWriter);
 				bw.write(returnMessage);
-				System.out.println("Mensagem enviada ao cliente é " + returnMessage);
+				System.out.println(returnMessage);
 				bw.flush();
 			}
 		} catch (Exception e) {
