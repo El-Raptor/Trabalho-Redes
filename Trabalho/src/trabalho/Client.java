@@ -19,11 +19,13 @@ public class Client {
 			OutputStreamWriter outWriter = new OutputStreamWriter(out);
 			BufferedWriter bw = new BufferedWriter(outWriter);
 
-			String number = "2";
-
-			String sendMessage = number + "\n";
+			String operation = "criar";
+			String path = "src\\Servidor\\Pasta";
+			
+			String sendMessage = operation + " " + path + "\n";		
 			bw.write(sendMessage);
 			bw.flush();
+
 			System.out.println("Mensagem enviada ao servidor: " + sendMessage);
 
 			// Recebe a mensagem de retorno do servidor.
