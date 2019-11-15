@@ -43,7 +43,11 @@ public class Server {
 				} else if (operation[0].equals("listar")) {
 					try {
 						File directory = new File(operation[1]);
-						returnMessage = directory.list().toString();
+						
+						// Transforma o vetor de String em uma String.
+						for (int i = 0; i < directory.list().length; i++)
+							returnMessage = directory.list()[i] + "\n";
+						
 					} catch (Exception e) {
 						// Erro de operação.
 					}
