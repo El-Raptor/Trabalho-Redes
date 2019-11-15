@@ -26,12 +26,14 @@ public class Client {
 			OutputStreamWriter outWriter = new OutputStreamWriter(out);
 			BufferedWriter bw = new BufferedWriter(outWriter);
 
-			System.out.println("Digite a operação na qual deseja realizar:\nCriar diretório: criar\nRemover "
-					+ "diretório: remvdir\nListar conteúdo de diretório: listar\nEnviar arquivo: enviar\n Remover arquivo: remvarq");
+			System.out.println("Digite a operação na qual deseja realizar:\n\nCriar diretório: criar\nRemover "
+					+ "diretório: remvdir\nListar conteúdo de diretório: listar\nEnviar arquivo: enviar\nRemover arquivo: remvarq");
 
 			// Lê do teclado a operação desejada.
 			Scanner scanner = new Scanner(System.in);
 			String operation = scanner.nextLine();
+			
+			System.out.println("Digite um nome para a nova pasta.");
 			String path = "src\\Servidor\\" + scanner.nextLine();
 			
 			// Transforma todos os caracteres em minúsculo.
