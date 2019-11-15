@@ -28,16 +28,28 @@ public class Server {
 				
 				String operation[] = receivedMessage.split(":");
 				
-				// Multiplicando o número por dois e formando a mensagem de retorno.
-				String returnMessage;
-				try {
-					File directory = new File(operation[1]);
-					directory.mkdir();
-					returnMessage = "Diretório " + operation[1] + " criado\n";
-				} catch (Exception e) {
-					// Entrada não era um número. Enviando a mensagem correta ao cliente.
-					returnMessage = "Falha na criação do diretório.\n";
+				String returnMessage = "Falha na operação.";
+				
+				// Seleciona a operação escolhida pelo cliente.				
+				if (operation.equals("criar")) {
+					try {
+						File directory = new File(operation[1]);
+						directory.mkdir();
+						returnMessage = "Diretório " + operation[1] + " criado\n";
+					} catch (Exception e) {
+						// Entrada não era um número. Enviando a mensagem correta ao cliente.
+						returnMessage = "Falha na criação do diretório.\n";
+					}
+				} else if (operation.equals("listar")) {
+					// TODO
+				} else if (operation.equals("remvdir")) {
+					// TODO;
+				} else if (operation.equals("enviar")) {
+					// TODO;
+				} else if (operation.equals("remvarq")) {
+					// TODO;
 				}
+				
 
 				// Enviando a resposta de volta ao cliente.
 				OutputStream out = socket.getOutputStream();

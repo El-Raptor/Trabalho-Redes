@@ -32,17 +32,30 @@ public class Client {
 			// Lê do teclado a operação desejada.
 			Scanner scanner = new Scanner(System.in);
 			String operation = scanner.nextLine();
-			
-			System.out.println("Digite um nome para a nova pasta.");
-			String path = "src\\Servidor\\" + scanner.nextLine();
-			
+
 			// Transforma todos os caracteres em minúsculo.
 			operation = operation.toLowerCase();
+
+			String path = "src\\Servidor\\";
+			
+
+			if (operation.equals("criar")) {
+				System.out.println("Digite um nome para a nova pasta.");
+				path = path + scanner.nextLine();
+			} else if (operation.equals("remvdir")) {
+				System.out.println("Digite o diretório o qual deseja remover.");
+				path = path + scanner.nextLine();
+			} else if (operation.equals("enviar")) {
+				// TODO;
+			} else if (operation.equals("remvarq")) {
+				// TODO;
+			}
+			
+			String sendMessage = operation + ":" + path + "\n";
 
 			// Fecha o scanner.
 			scanner.close();
 
-			String sendMessage = operation + ":" + path + "\n";
 			bw.write(sendMessage);
 			bw.flush();
 
