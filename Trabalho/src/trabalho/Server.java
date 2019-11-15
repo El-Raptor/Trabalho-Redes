@@ -26,14 +26,14 @@ public class Server {
 				String receivedMessage = br.readLine();
 				System.out.println("Mensagem recebida do cliente: " + receivedMessage);
 				
-				String operation[] = receivedMessage.split("|");
+				String operation[] = receivedMessage.split(":");
 				
 				// Multiplicando o número por dois e formando a mensagem de retorno.
 				String returnMessage;
 				try {
 					File directory = new File(operation[1]);
 					directory.mkdir();
-					returnMessage = "Diretório criado\n";
+					returnMessage = "Diretório " + operation[1] + " criado\n";
 				} catch (Exception e) {
 					// Entrada não era um número. Enviando a mensagem correta ao cliente.
 					returnMessage = "Falha na criação do diretório.\n";
