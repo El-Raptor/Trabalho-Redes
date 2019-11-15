@@ -31,7 +31,7 @@ public class Server {
 				String returnMessage = "Falha na operação.";
 				
 				// Seleciona a operação escolhida pelo cliente.				
-				if (operation.equals("criar")) {
+				if (operation[0].equals("criar")) {
 					try {
 						File directory = new File(operation[1]);
 						directory.mkdir();
@@ -40,13 +40,18 @@ public class Server {
 						// Entrada não era um número. Enviando a mensagem correta ao cliente.
 						returnMessage = "Falha na criação do diretório.\n";
 					}
-				} else if (operation.equals("listar")) {
-					// TODO
-				} else if (operation.equals("remvdir")) {
+				} else if (operation[0].equals("listar")) {
+					try {
+						File directory = new File(operation[1]);
+						returnMessage = directory.list().toString();
+					} catch (Exception e) {
+						// Erro de operação.
+					}
+				} else if (operation[0].equals("remvdir")) {
 					// TODO;
-				} else if (operation.equals("enviar")) {
+				} else if (operation[0].equals("enviar")) {
 					// TODO;
-				} else if (operation.equals("remvarq")) {
+				} else if (operation[0].equals("remvarq")) {
 					// TODO;
 				}
 				
