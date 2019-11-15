@@ -66,7 +66,7 @@ public class Client {
 			InputStreamReader inReader = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inReader);
 			String message = br.readLine();
-			System.out.println("Mensagem recebida do servidor: " + message);
+			System.out.println("\n" + message);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		} finally {
