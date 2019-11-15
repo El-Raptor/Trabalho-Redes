@@ -47,7 +47,7 @@ public class Server {
 						
 						// Transforma o vetor de String em uma String.
 						for (int i = 0; i < directory.list().length; i++)
-							returnMessage += directory.list()[i] + "\n";
+							returnMessage += directory.list()[i] + ";";
 						
 					} catch (Exception e) {
 						// Erro de operação.
@@ -65,7 +65,7 @@ public class Server {
 				OutputStream out = socket.getOutputStream();
 				OutputStreamWriter outWriter = new OutputStreamWriter(out);
 				BufferedWriter bw = new BufferedWriter(outWriter);
-				bw.write(returnMessage);
+				bw.write(returnMessage + "\n");
 				System.out.println(returnMessage);
 				bw.flush();
 			}

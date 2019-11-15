@@ -66,6 +66,9 @@ public class Client {
 			InputStreamReader inReader = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inReader);
 			String message = br.readLine();
+			
+			// Trata e formata a String para um formato de lista.
+			message = message.replace(";", "\n");
 			System.out.println(message);
 		} catch (Exception exception) {
 			exception.printStackTrace();
