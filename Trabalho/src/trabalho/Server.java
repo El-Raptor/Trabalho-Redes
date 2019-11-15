@@ -27,23 +27,28 @@ public class Server {
 
 			// Servidor sempre rodando.
 			while (true) {
+
+				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SS");
+
 				// Lendo a mensagem do cliente.
 				socket = serverSocket.accept();
 				InputStream in = socket.getInputStream();
 				InputStreamReader inReader = new InputStreamReader(in);
 				BufferedReader br = new BufferedReader(inReader);
 				String receivedMessage = br.readLine();
-				System.out.println("Mensagem recebida do cliente: " + receivedMessage);
+				Date receivedMessageTime = new Date();
+				System.out.println("(" + dateFormat.format(receivedMessageTime) + "): Mensagem recebida do cliente: "
+						+ receivedMessage);
 
 				// Separa a String recebida pelo cliente em duas:
 				// A primeira para o comando e a segunda para o caminho.
 				String operation[] = receivedMessage.split(":");
 
 				// Recupera hora do sistema.
-				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-				Date date = new Date();
-				
-				String returnMessage = "(" + dateFormat.format(date) + "): ";
+
+				Date sendMessageTime = new Date();
+
+				String returnMessage = "(" + dateFormat.format(sendMessageTime) + "): ";
 
 				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {
@@ -61,6 +66,8 @@ public class Server {
 
 					File directory = new File(operation[1]);
 
+					returnMessage += "Itens:;";
+
 					// Transforma o vetor de String em uma String.
 					for (int i = 0; i < directory.list().length; i++)
 						returnMessage += directory.list()[i] + ";";
@@ -73,13 +80,11 @@ public class Server {
 					// Verifica se o diretório foi deletado
 					if (dirDeleted)
 						returnMessage = "Diretório/arquivo deletado.\n";
-					
+
 					else
 						returnMessage += "Falha na deleção de diretório/arquivo.\n";
 
 				} else if (operation[0].equals("enviar")) {
-					// TODO;
-				} else if (operation[0].equals("remvarq")) {
 					// TODO;
 				}
 
@@ -88,7 +93,7 @@ public class Server {
 				OutputStreamWriter outWriter = new OutputStreamWriter(out);
 				BufferedWriter bw = new BufferedWriter(outWriter);
 				bw.write(returnMessage + "\n");
-				System.out.println(returnMessage);
+				System.out.println("(" + dateFormat.format(sendMessageTime) + "): Mensagem retornada ao cliente.");
 				bw.flush();
 			}
 		} catch (Exception e) {
