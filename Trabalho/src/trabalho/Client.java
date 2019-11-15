@@ -8,6 +8,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Client {
@@ -65,7 +68,11 @@ public class Client {
 			bw.write(sendMessage);
 			bw.flush();
 			
-			System.out.println("\nMensagem enviada ao servidor: " + sendMessage + "\n");
+			// Recupera hora do sistema.
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			Date date = new Date();
+			
+			System.out.println("\n(" + dateFormat.format(date) + "): Mensagem enviada ao servidor: " + sendMessage /*+ "\n"*/);
 
 			// Recebe a mensagem de retorno do servidor.
 			InputStream in = socket.getInputStream();
