@@ -69,7 +69,7 @@ public class Client {
 			bw.flush();
 			
 			// Recupera hora do sistema.
-			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SS");
 			Date date = new Date();
 			
 			System.out.println("\n(" + dateFormat.format(date) + "): Mensagem enviada ao servidor: " + sendMessage /*+ "\n"*/);
