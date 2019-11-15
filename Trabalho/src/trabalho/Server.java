@@ -10,12 +10,13 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Server {
-	
+
 	private static Socket socket;
-	
+
 	public static void main(String args[]) {
 		try {
 			int port = 6796;
@@ -33,59 +34,55 @@ public class Server {
 				BufferedReader br = new BufferedReader(inReader);
 				String receivedMessage = br.readLine();
 				System.out.println("Mensagem recebida do cliente: " + receivedMessage);
-				
+
 				// Separa a String recebida pelo cliente em duas:
 				// A primeira para o comando e a segunda para o caminho.
 				String operation[] = receivedMessage.split(":");
-				
+
+				// Recupera hora do sistema.
+				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 				Date date = new Date();
-				
-				String returnMessage = date + ": Falha na operação.";
-				
-				// Seleciona a operação escolhida pelo cliente.				
+
+				String returnMessage = "(" + dateFormat.format(date) + "): ";
+
+				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {
-					try {
-						File directory = new File(operation[1]);
-						boolean dirCreated = directory.mkdir();
-						
-						// Verifica se diretório foi criado.
-						if (dirCreated)
-							returnMessage = "Diretório " + operation[1] + " criado\n";
-						
-					} catch (Exception e) {
-						// Entrada não era um número. Enviando a mensagem correta ao cliente.
-						returnMessage = "Falha na criação do diretório.\n";
-					}
+					File directory = new File(operation[1]);
+					boolean dirCreated = directory.mkdir();
+
+					// Verifica se diretório foi criado.
+					if (dirCreated)
+						returnMessage += "Diretório " + operation[1] + " criado\n";
+
+					else
+						returnMessage += "Falha na criação de diretório.";
+
 				} else if (operation[0].equals("listar")) {
-					try {
-						File directory = new File(operation[1]);
-						returnMessage = "";
-						
-						// Transforma o vetor de String em uma String.
-						for (int i = 0; i < directory.list().length; i++)
-							returnMessage += directory.list()[i] + ";";
-						
-					} catch (Exception e) {
-						// Erro de operação.
-					}
+
+					File directory = new File(operation[1]);
+					//returnMessage = "";
+
+					// Transforma o vetor de String em uma String.
+					for (int i = 0; i < directory.list().length; i++)
+						returnMessage += directory.list()[i] + ";";
+
 				} else if (operation[0].equals("remvdir")) {
-					try {
-						File dir = new File(operation[1]);
-						boolean dirDeleted = dir.delete();
-						
-						// Verifica se o diretório foi deletado
-						if (dirDeleted)
-							returnMessage = "Diretório deletado.\n";
-						
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
+
+					File dir = new File(operation[1]);
+					boolean dirDeleted = dir.delete();
+
+					// Verifica se o diretório foi deletado
+					if (dirDeleted)
+						returnMessage = "Diretório deletado.\n";
+					
+					else
+						returnMessage += "Falha na deleção de diretório.";
+
 				} else if (operation[0].equals("enviar")) {
 					// TODO;
 				} else if (operation[0].equals("remvarq")) {
 					// TODO;
 				}
-				
 
 				// Enviando a resposta de volta ao cliente.
 				OutputStream out = socket.getOutputStream();
@@ -106,4 +103,3 @@ public class Server {
 		}
 	}
 }
- 
