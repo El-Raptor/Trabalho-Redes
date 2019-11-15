@@ -26,6 +26,8 @@ public class Server {
 				String receivedMessage = br.readLine();
 				System.out.println("Mensagem recebida do cliente: " + receivedMessage);
 				
+				// Separa a String recebida pelo cliente em duas:
+				// A primeira para o comando e a segunda para o caminho.
 				String operation[] = receivedMessage.split(":");
 				
 				String returnMessage = "Falha na operação.";
@@ -57,7 +59,17 @@ public class Server {
 						// Erro de operação.
 					}
 				} else if (operation[0].equals("remvdir")) {
-					// TODO;
+					try {
+						File dir = new File(operation[1]);
+						boolean dirDeleted = dir.delete();
+						
+						// Verifica se o diretório foi deletado
+						if (dirDeleted)
+							returnMessage = "Diretório deletado.\n";
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
 				} else if (operation[0].equals("enviar")) {
 					// TODO;
 				} else if (operation[0].equals("remvarq")) {
