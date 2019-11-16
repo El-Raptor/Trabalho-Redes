@@ -1,10 +1,8 @@
 package trabalho;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,19 +37,21 @@ public class Client {
 			// Lê do teclado a operação desejada.
 			Scanner scanner = new Scanner(System.in);
 			String operation = scanner.nextLine();
-
+			
 			// Transforma todos os caracteres em minúsculo.
 			operation = operation.toLowerCase();
 
 			String path = "src\\Servidor\\";
 			
 			boolean sendFile = false;
-			String filePath = "";
 			String newPath = "";
-
+			
+			// Cria diretório.
 			if (operation.equals("criar")) {
 				System.out.println("Digite um nome para a nova pasta.");
 				path = path + scanner.nextLine();
+				
+			// Remove diretório ou arquivo.
 			} else if (operation.equals("remover")) {
 				System.out.println("Digite o diretório/arquivo no qual deseja remover.");
 				String desiredDir = scanner.nextLine();
@@ -62,14 +62,14 @@ public class Client {
 					throw new IllegalArgumentException("Não é permitido apagar este diretório.");
 				}			
 				path = path + desiredDir;
-				
+			
+			// Envia arquivo.	
 			} else if (operation.equals("enviar")) {
 				sendFile = true;
 				System.out.println("Digite o caminho do arquivo que deseja enviar.");
-				filePath = scanner.nextLine();
+				path = scanner.nextLine();
 				System.out.println("Digite o caminho para onde deseja enviar o arquivo.");
 				newPath = scanner.nextLine();
-				path = filePath;
 			} 
 			
 			String sendMessage = operation + ":" + path + "\n";
@@ -95,11 +95,11 @@ public class Client {
 			if (sendFile) {
 				
 				byte[] byteArray = new byte[1048576];
-				InputStream is = socket.getInputStream();
+				
 				FileOutputStream fos = new FileOutputStream(newPath);
 				BufferedOutputStream bos = new BufferedOutputStream(fos);
-				//int bytesRead = is.read(byteArray, 0, byteArray.length);
-				bos.write(byteArray, 0, byteArray.length);
+
+				bos.write(byteArray);
 				bos.close();	
 			}
 			

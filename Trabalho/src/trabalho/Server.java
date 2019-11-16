@@ -51,7 +51,12 @@ public class Server {
 				Date sendMessageTime = new Date();
 
 				String returnMessage = "(" + dateFormat.format(sendMessageTime) + "): ";
-
+				
+				// Enviando a resposta de volta ao cliente.
+				OutputStream out = socket.getOutputStream();
+				OutputStreamWriter outWriter = new OutputStreamWriter(out);
+				BufferedWriter bw = new BufferedWriter(outWriter);
+				
 				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {
 					File directory = new File(operation[1]);
@@ -93,22 +98,19 @@ public class Server {
 					
 					// Lê o arquivo.
 					BufferedInputStream bis = new BufferedInputStream(new FileInputStream(dir));
-					bis.read(byteArray, 0, byteArray.length);
+					bis.read(byteArray);
 					
 					// Escreve o arquivo no socket.
-					OutputStream os = socket.getOutputStream();
-					os.write(byteArray, 0, byteArray.length);
-					os.flush();
+					
+					out.write(byteArray);
+					out.flush();
 					
 					bis.close();
 					
 					returnMessage += "Envio realizado com sucesso.\n";
 				}
 
-				// Enviando a resposta de volta ao cliente.
-				OutputStream out = socket.getOutputStream();
-				OutputStreamWriter outWriter = new OutputStreamWriter(out);
-				BufferedWriter bw = new BufferedWriter(outWriter);
+				// Escreve no Socket
 				bw.write(returnMessage + "\n");
 				System.out.println("(" + dateFormat.format(sendMessageTime) + "): Mensagem retornada ao cliente.");
 				bw.flush();
