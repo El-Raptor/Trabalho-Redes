@@ -87,11 +87,11 @@ public class Server {
 
 				} else if (operation[0].equals("enviar")) {
 					// Preparando o arquivo.
-					File dir = new File(operation[1]);
+					
 					byte[] buffer = new byte[5120];
 
 					// Lê o arquivo.
-					FileInputStream fileIn = new FileInputStream(dir);
+					FileInputStream fileIn = new FileInputStream(operation[1]);
 					fileIn.read(buffer, 0, buffer.length);
 
 					// Escreve o arquivo no socket.
