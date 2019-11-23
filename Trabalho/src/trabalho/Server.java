@@ -52,10 +52,12 @@ public class Server {
 
 				String returnMessage = "";
 				
+				File file = new File(operation[1]);
+				
 				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {
-					File directory = new File(operation[1]);
-					boolean dirCreated = directory.mkdir();
+					
+					boolean dirCreated = file.mkdir();
 
 					// Verifica se diretório foi criado.
 					if (dirCreated)
@@ -66,18 +68,15 @@ public class Server {
 
 				} else if (operation[0].equals("listar")) {
 
-					File directory = new File(operation[1]);
-
 					returnMessage += "Itens:;";
 
 					// Transforma o vetor de String em uma String.
-					for (int i = 0; i < directory.list().length; i++)
-						returnMessage += directory.list()[i] + ";";
+					for (int i = 0; i < file.list().length; i++)
+						returnMessage += file.list()[i] + ";";
 
 				} else if (operation[0].equals("remover")) {
 
-					File dir = new File(operation[1]);
-					boolean dirDeleted = dir.delete();
+					boolean dirDeleted = file.delete();
 
 					// Verifica se o diretório foi deletado
 					if (dirDeleted)
