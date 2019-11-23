@@ -37,6 +37,8 @@ public class Server {
 				InputStreamReader inReader = new InputStreamReader(in);
 				BufferedReader br = new BufferedReader(inReader);
 				String receivedMessage = br.readLine();
+				
+				// Hora da mensagem recebida.
 				Date receivedMessageTime = new Date();
 				System.out.println("(" + dateFormat.format(receivedMessageTime) + "): Mensagem recebida do cliente: "
 						+ receivedMessage);
@@ -45,12 +47,11 @@ public class Server {
 				// A primeira para o comando e a segunda para o caminho.
 				String operation[] = receivedMessage.split(":");
 
-				// Recupera hora do sistema.
-
+				// Hora do retorno ao cliente.
 				Date sendMessageTime = new Date();
 
-				String returnMessage = "(" + dateFormat.format(sendMessageTime) + "): ";
-
+				String returnMessage = "";
+				
 				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {
 					File directory = new File(operation[1]);
@@ -111,6 +112,7 @@ public class Server {
 				BufferedWriter bw = new BufferedWriter(outWriter);
 				// Escreve no Socket
 				bw.write(returnMessage + "\n");
+				
 				System.out.println("(" + dateFormat.format(sendMessageTime) + "): Mensagem retornada ao cliente.");
 				bw.flush();
 			}
