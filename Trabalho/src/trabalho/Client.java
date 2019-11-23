@@ -93,8 +93,8 @@ public class Client {
 
 				FileOutputStream fileOut = new FileOutputStream(newPath);
 
-				in.read(buffer, 0, buffer.length);
-				fileOut.write(buffer, 0, buffer.length);
+				in.read(buffer);
+				fileOut.write(buffer);
 
 			}
 			

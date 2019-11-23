@@ -36,11 +36,12 @@ public class Server {
 				InputStream in = socket.getInputStream();
 				InputStreamReader inReader = new InputStreamReader(in);
 				BufferedReader br = new BufferedReader(inReader);
-				String receivedMessage = br.readLine();
 				
+				String receivedMessage = br.readLine();					
+
 				// Hora da mensagem recebida.
 				Date receivedMessageTime = new Date();
-				System.out.println("(" + dateFormat.format(receivedMessageTime) + "): Mensagem recebida do cliente: "
+				System.out.println("[IN](" + dateFormat.format(receivedMessageTime) + "): "
 						+ receivedMessage);
 
 				// Separa a String recebida pelo cliente em duas:
@@ -109,6 +110,7 @@ public class Server {
 				OutputStream out = socket.getOutputStream();
 				OutputStreamWriter outWriter = new OutputStreamWriter(out);
 				BufferedWriter bw = new BufferedWriter(outWriter);
+				
 				// Escreve no Socket
 				bw.write(returnMessage + "\n");
 				
