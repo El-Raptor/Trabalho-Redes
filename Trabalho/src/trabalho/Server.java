@@ -36,25 +36,29 @@ public class Server {
 				InputStream in = socket.getInputStream();
 				InputStreamReader inReader = new InputStreamReader(in);
 				BufferedReader br = new BufferedReader(inReader);
-				String receivedMessage = br.readLine();
+				
+				String receivedMessage = br.readLine();					
+
+				// Hora da mensagem recebida.
 				Date receivedMessageTime = new Date();
-				System.out.println("(" + dateFormat.format(receivedMessageTime) + "): Mensagem recebida do cliente: "
+				System.out.println("[IN](" + dateFormat.format(receivedMessageTime) + "): "
 						+ receivedMessage);
 
 				// Separa a String recebida pelo cliente em duas:
 				// A primeira para o comando e a segunda para o caminho.
 				String operation[] = receivedMessage.split(":");
 
-				// Recupera hora do sistema.
-
+				// Hora do retorno ao cliente.
 				Date sendMessageTime = new Date();
 
-				String returnMessage = "(" + dateFormat.format(sendMessageTime) + "): ";
-
+				String returnMessage = "";
+				
+				File file = new File(operation[1]);
+				
 				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {
-					File directory = new File(operation[1]);
-					boolean dirCreated = directory.mkdir();
+					
+					boolean dirCreated = file.mkdir();
 
 					// Verifica se diretório foi criado.
 					if (dirCreated)
@@ -65,18 +69,15 @@ public class Server {
 
 				} else if (operation[0].equals("listar")) {
 
-					File directory = new File(operation[1]);
-
 					returnMessage += "Itens:;";
 
 					// Transforma o vetor de String em uma String.
-					for (int i = 0; i < directory.list().length; i++)
-						returnMessage += directory.list()[i] + ";";
+					for (int i = 0; i < file.list().length; i++)
+						returnMessage += file.list()[i] + ";";
 
 				} else if (operation[0].equals("remover")) {
 
-					File dir = new File(operation[1]);
-					boolean dirDeleted = dir.delete();
+					boolean dirDeleted = file.delete();
 
 					// Verifica se o diretório foi deletado
 					if (dirDeleted)
@@ -87,11 +88,11 @@ public class Server {
 
 				} else if (operation[0].equals("enviar")) {
 					// Preparando o arquivo.
-					File dir = new File(operation[1]);
+					
 					byte[] buffer = new byte[5120];
 
 					// Lê o arquivo.
-					FileInputStream fileIn = new FileInputStream(dir);
+					FileInputStream fileIn = new FileInputStream(operation[1]);
 					fileIn.read(buffer, 0, buffer.length);
 
 					// Escreve o arquivo no socket.
@@ -109,8 +110,10 @@ public class Server {
 				OutputStream out = socket.getOutputStream();
 				OutputStreamWriter outWriter = new OutputStreamWriter(out);
 				BufferedWriter bw = new BufferedWriter(outWriter);
+				
 				// Escreve no Socket
 				bw.write(returnMessage + "\n");
+				
 				System.out.println("(" + dateFormat.format(sendMessageTime) + "): Mensagem retornada ao cliente.");
 				bw.flush();
 			}
