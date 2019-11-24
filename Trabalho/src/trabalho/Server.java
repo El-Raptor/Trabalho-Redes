@@ -56,12 +56,10 @@ public class Server {
 				File file = new File(operation[1]);
 				
 				// Seleciona a operação escolhida pelo cliente.
-				if (operation[0].equals("criar")) {
-					
-					boolean dirCreated = file.mkdir();
-
+				if (operation[0].equals("criar")) {				
+					FileManagement fm = new FileManagement();
 					// Verifica se diretório foi criado.
-					if (dirCreated)
+					if (fm.createDir(operation[1]))
 						returnMessage += "Diretório " + operation[1] + " criado\n";
 
 					else
