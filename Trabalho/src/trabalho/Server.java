@@ -59,7 +59,9 @@ public class Server {
 				if (operation[0].equals("criar")) {				
 					FileManagement fm = new FileManagement();
 					// Verifica se diretório foi criado.
-					if (fm.createDir(operation[1]))
+					boolean fileCreated = fm.createDir(operation[1]); // path = operation[1]
+					
+					if (fileCreated)
 						returnMessage += "Diretório " + operation[1] + " criado\n";
 
 					else

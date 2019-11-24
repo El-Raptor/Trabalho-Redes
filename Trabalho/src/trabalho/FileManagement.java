@@ -27,7 +27,7 @@ public class FileManagement {
 		if (!file.exists())
 			fileCreated = file.mkdir();	
 		
-		if (i < dirs.length) {
+		if (i < dirs.length-1) {
 			return createDir(path + "\\" + dirs[++i], i);
 		}
 		
