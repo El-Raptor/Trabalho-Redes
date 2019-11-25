@@ -3,34 +3,28 @@ package trabalho;
 import java.io.File;
 
 public class FileManagement {
-	private String dirs[];
-	/*
-	 * private String path;
-	 * 
-	 * public FileManagement(String path) { this.path = path; }
-	 */
 	
-	boolean createDir(String path) {
+	boolean createDir(String path) {	
 		
-		path = path.replace("\\", "/");
-		dirs = path.split("/");
-
-		return createDir(dirs[0], 0);
+		if (!path.contains("\"")) {
+			
+			File file = new File(path); 
+			String newDir = file.getName(); // Pega o nome do atual diretório.
+			String paths[] = newDir.split(" ");
+			
+			for (int i = 0; i < paths.length; i++) {
+				paths[i] = file.getParent() + "\\" + paths[i];
+				File file2 = new File(paths[i]);
+				file2.mkdirs();
+			} // for
+			
+			return true;
+			
+		} // if
 		
-	}
-	
-	private boolean createDir(String path, int i) {
+		path = path.replace("\"", ""); // Retira as aspas da String path.
+		File file = new File(path);
 		
-		File file = new File(path);		
-		boolean fileCreated = false;
-		
-		if (!file.exists())
-			fileCreated = file.mkdir();	
-		
-		if (i < dirs.length-1) {
-			return createDir(path + "\\" + dirs[++i], i);
-		}
-		
-		return true;
+		return file.mkdirs();
 	}
 }
