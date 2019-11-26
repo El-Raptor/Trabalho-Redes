@@ -2,7 +2,6 @@ package trabalho;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,13 +52,12 @@ public class Server {
 
 				String returnMessage = "";
 				
-				File file = new File(operation[1]);
+				FileManagement fm = new FileManagement();
 				
 				// Seleciona a operação escolhida pelo cliente.
 				if (operation[0].equals("criar")) {				
-					FileManagement fm = new FileManagement();
-					// Verifica se diretório foi criado.
-					
+
+					// Cria e verifica se diretório foi criado.				
 					if (fm.createDir(operation[1])) // path = operation[1]
 						returnMessage += "Diretório " + operation[1] + " criado\n";
 
@@ -67,12 +65,11 @@ public class Server {
 						returnMessage += "Falha na criação de diretório.\n";
 
 				} else if (operation[0].equals("listar")) {
-					
-					FileManagement fm = new FileManagement();
+
 					returnMessage += "Itens:;" + fm.list(operation[1]);
 
 				} else if (operation[0].equals("remover")) {
-					FileManagement fm = new FileManagement();
+					
 					// Verifica se o diretório foi deletado
 					if (fm.del(operation[1]))
 						returnMessage = "Diretório/arquivo deletado.\n";
@@ -81,8 +78,8 @@ public class Server {
 						returnMessage += "Falha na deleção de diretório/arquivo.\n";
 
 				} else if (operation[0].equals("enviar")) {
-					// Preparando o arquivo.
 					
+					// Preparando o arquivo.
 					byte[] buffer = new byte[5120];
 
 					// Lê o arquivo.
