@@ -27,4 +27,42 @@ public class FileManagement {
 		
 		return file.mkdirs();
 	}
+	
+	String list(String path) {
+		File file = new File(path);
+		
+		String listOfFiles = "";
+		
+		// Transforma o vetor de String em uma String.
+		for (int i = 0; i < file.list().length; i++)
+			listOfFiles += file.list()[i] + ";";
+		
+		return listOfFiles;
+	}
+	
+	boolean delete(String path) {
+		
+		File file = new File(path);
+		
+		if(file.isDirectory()) {
+			String[] files = file.list();
+			if(files.length > 0)
+				delete(path, files.length-1);
+		}
+		
+		return file.delete();
+	}
+	
+	private void delete(String path, int i) {
+		
+		if (i < 0)
+			return;
+		
+		File file = new File(path);
+		String files[] = file.list();
+		
+		delete(path + "\\" + files[i]);
+		
+		delete(path, --i);
+	}
 }

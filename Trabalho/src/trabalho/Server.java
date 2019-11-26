@@ -67,19 +67,14 @@ public class Server {
 						returnMessage += "Falha na criação de diretório.\n";
 
 				} else if (operation[0].equals("listar")) {
-
-					returnMessage += "Itens:;";
-
-					// Transforma o vetor de String em uma String.
-					for (int i = 0; i < file.list().length; i++)
-						returnMessage += file.list()[i] + ";";
+					
+					FileManagement fm = new FileManagement();
+					returnMessage += "Itens:;" + fm.list(operation[1]);
 
 				} else if (operation[0].equals("remover")) {
-
-					boolean dirDeleted = file.delete();
-
+					FileManagement fm = new FileManagement();
 					// Verifica se o diretório foi deletado
-					if (dirDeleted)
+					if (fm.delete(operation[1]))
 						returnMessage = "Diretório/arquivo deletado.\n";
 
 					else
