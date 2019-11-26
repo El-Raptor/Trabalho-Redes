@@ -74,7 +74,7 @@ public class Server {
 				} else if (operation[0].equals("remover")) {
 					FileManagement fm = new FileManagement();
 					// Verifica se o diretório foi deletado
-					if (fm.delete(operation[1]))
+					if (fm.del(operation[1]))
 						returnMessage = "Diretório/arquivo deletado.\n";
 
 					else

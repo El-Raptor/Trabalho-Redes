@@ -40,7 +40,28 @@ public class FileManagement {
 		return listOfFiles;
 	}
 	
-	boolean delete(String path) {
+	boolean del(String path) {
+		File file = new File(path);
+		String fileName = file.getName();
+		
+		if (fileName.contains("\"")) {
+			path = path.replace("\"", "");
+			return delete(path);
+		} // if
+		
+		if(fileName.contains(" ")) {
+			String[] files = fileName.split(" ");
+			for (int i = 0; i < files.length-1; i++) {
+				files[i] = file.getParent() + "\\" + files[i];
+				delete(files[i]);
+			} // for
+			files[files.length-1] = file.getParent() + "\\" + files[files.length-1];
+			return delete(files[files.length-1]);
+		} // if		
+		
+		return delete(path);
+	}
+	private boolean delete(String path) {
 		
 		File file = new File(path);
 		
