@@ -35,13 +35,12 @@ public class Server {
 				InputStream in = socket.getInputStream();
 				InputStreamReader inReader = new InputStreamReader(in);
 				BufferedReader br = new BufferedReader(inReader);
-				
-				String receivedMessage = br.readLine();					
+
+				String receivedMessage = br.readLine();
 
 				// Hora da mensagem recebida.
 				Date receivedMessageTime = new Date();
-				System.out.println("[IN](" + dateFormat.format(receivedMessageTime) + "): "
-						+ receivedMessage);
+				System.out.println("[IN](" + dateFormat.format(receivedMessageTime) + "): " + receivedMessage);
 
 				// Separa a String recebida pelo cliente em duas:
 				// A primeira para o comando e a segunda para o caminho.
@@ -51,13 +50,13 @@ public class Server {
 				Date sendMessageTime = new Date();
 
 				String returnMessage = "";
-				
-				FileManagement fm = new FileManagement();
-				
-				// Seleciona a operação escolhida pelo cliente.
-				if (operation[0].equals("criar")) {				
 
-					// Cria e verifica se diretório foi criado.				
+				FileManagement fm = new FileManagement();
+
+				// Seleciona a operação escolhida pelo cliente.
+				if (operation[0].equals("criar")) {
+
+					// Cria e verifica se diretório foi criado.
 					if (fm.createDir(operation[1])) // path = operation[1]
 						returnMessage += "Diretório " + operation[1] + " criado\n";
 
@@ -69,7 +68,7 @@ public class Server {
 					returnMessage += "Itens:;" + fm.list(operation[1]);
 
 				} else if (operation[0].equals("remover")) {
-					
+
 					// Verifica se o diretório foi deletado
 					if (fm.del(operation[1]))
 						returnMessage = "Diretório/arquivo deletado.\n";
@@ -78,7 +77,7 @@ public class Server {
 						returnMessage += "Falha na deleção de diretório/arquivo.\n";
 
 				} else if (operation[0].equals("enviar")) {
-					
+
 					// Preparando o arquivo.
 					byte[] buffer = new byte[5120];
 
@@ -94,17 +93,17 @@ public class Server {
 					fileIn.close();
 
 				}
-				
+
 				System.out.println(receivedMessage);
-				
+
 				// Enviando a resposta de volta ao cliente.
 				OutputStream out = socket.getOutputStream();
 				OutputStreamWriter outWriter = new OutputStreamWriter(out);
 				BufferedWriter bw = new BufferedWriter(outWriter);
-				
+
 				// Escreve no Socket
 				bw.write(returnMessage + "\n");
-				
+
 				System.out.println("(" + dateFormat.format(sendMessageTime) + "): Mensagem retornada ao cliente.");
 				bw.flush();
 			}

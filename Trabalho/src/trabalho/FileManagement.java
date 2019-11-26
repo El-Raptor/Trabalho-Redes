@@ -43,8 +43,7 @@ public class FileManagement {
 				listOfFiles += "<DIR>\t" + DirsList[i] + ";";
 			else {
 				String fileType = fileName[1];
-				listOfFiles += "<" + fileType.toUpperCase() + ">\t" + fileName[0] + 
-						fileName[1] + ";";
+				listOfFiles += "<" + fileType.toUpperCase() + ">\t" + fileName[0] + fileName[1] + ";";
 			}
 		}
 

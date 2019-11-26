@@ -100,18 +100,18 @@ public class Client {
 				fileOut.write(buffer);
 
 			}
-			
+
 			// Fecha o scanner.
 			scanner.close();
-			
+
 			InputStreamReader inReader = new InputStreamReader(in);
 			BufferedReader br = new BufferedReader(inReader);
 			String message = br.readLine();
-			
+
 			// Recupera a data do retorno da mensagem.
 			date = new Date();
-			message = "(" + dateFormat.format(date) + "):\n" +  message;
-			
+			message = "(" + dateFormat.format(date) + "):\n" + message;
+
 			// Trata e formata a String para um formato de lista.
 			message = message.replace(";", "\n");
 			System.out.println(message);
