@@ -67,6 +67,9 @@ public class Client {
 				System.out.println("Digite o caminho do arquivo que deseja enviar.");
 				path = scanner.nextLine();
 
+			} else if (operation.equals("listar")) {
+				System.out.println("Digite o caminho do arquivo que deseja enviar.");
+				path += scanner.nextLine();
 			}
 
 			String sendMessage = operation + ":" + path + "\n";

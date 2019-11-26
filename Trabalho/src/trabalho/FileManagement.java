@@ -33,9 +33,18 @@ public class FileManagement {
 		
 		String listOfFiles = "";
 		
-		// Transforma o vetor de String em uma String.
-		for (int i = 0; i < file.list().length; i++)
-			listOfFiles += file.list()[i] + ";";
+		String[] DirsList = file.list();
+		// Transforma o vetor de String em uma String e reconhece se é diretório ou arquivo e seu tipo.
+		for (int i = 0; i < DirsList.length; i++) {
+			DirsList[i] = DirsList[i].replace(".", ":.");
+			String[] fileName = DirsList[i].split(":");
+			if(fileName.length <= 1) 
+				listOfFiles += "<DIR>\t" + DirsList[i] + ";";
+			else {
+				String fileType = fileName[1];
+				listOfFiles += "<" + fileType.toUpperCase() + ">\t" + DirsList[i] + ";";
+			}
+		}
 		
 		return listOfFiles;
 	}
